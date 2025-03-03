@@ -8,9 +8,15 @@
 import { pipeline } from '@xenova/transformers';
 
 async function main() {
-  const pipe = await pipeline('text-generation');
-  const result = await pipe("I used to,");
-  console.log(result);
+  // gpt-2
+  const generator = await pipeline('text-generation', 'Xenova/gpt2');
+  const response = await generator("Hello, how can I help you?");
+  console.log(response[0].generated_text);
+
+  // sentiment analysis
+  const sentiment = await pipeline('sentiment-analysis');
+  console.log(await sentiment("This product is amazing!"));
+  console.log(response[0].generated_text);
 }
 
 main();
